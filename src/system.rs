@@ -180,7 +180,7 @@ impl<C: Constraint> System<C> {
     // add constraint
     self.constraints.push(constraint);
     self.to_minimise.insert(idx);
-    return false;
+    false
   }
 
   /// Removes the constraint at a given index from the system and returns it
@@ -265,7 +265,7 @@ impl<C: Constraint> System<C> {
     C::Var: Hash + Eq,
     C::Solution: Default,
   {
-    if self.to_minimise.len() > 0 {
+    if !self.to_minimise.is_empty() {
       self.minimise()?;
     }
 
@@ -389,7 +389,7 @@ impl<C: Constraint> System<C> {
   /// ## Arguments
   ///
   /// - `heur`: the heuristic to use, takes the constraint and all overlapping constraints\
-  ///     and returns a key that can be used to rank the best constraint to explore
+  ///   and returns a key that can be used to rank the best constraint to explore
   ///
   /// ## Returns
   ///
@@ -412,7 +412,7 @@ impl<C: Constraint> System<C> {
             .collect::<Vec<_>>(),
         )
       })
-      .max_by_key(|(cons, overlaps)| heuristic.rank(cons, &overlaps))
+      .max_by_key(|(cons, overlaps)| heuristic.rank(cons, overlaps))
       .map(|(cons, _score)| cons)
   }
 

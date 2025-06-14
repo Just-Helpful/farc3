@@ -169,7 +169,7 @@ impl<V, T: Hash + Eq> DiscreteConstraint<V, T> {
   fn pop_idxs(&mut self, idxs: Vec<usize>) -> Option<DiscreteConstraint<V, T>> {
     // if there aren't any variables in this constraint
     // then we can't really pop **any** indexes from it at all.
-    if self.variables.len() == 0 {
+    if self.variables.is_empty() {
       return None;
     }
 

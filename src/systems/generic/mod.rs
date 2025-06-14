@@ -5,8 +5,8 @@ pub mod constraint;
 pub mod utils;
 
 pub mod prelude {
-  //! Common exports for generic constraint systems
-  pub use super::constraint::DiscreteConstraint;
+    //! Common exports for generic constraint systems
+    pub use super::constraint::DiscreteConstraint;
 }
 
 #[cfg(test)]

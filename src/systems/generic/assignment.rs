@@ -43,53 +43,53 @@ use crate::prelude::Assignment;
 pub struct DiscreteAssignment<V: Hash + Eq, T>(HashMap<V, T>);
 
 impl<V: Hash + Eq, T: PartialEq> PartialEq for DiscreteAssignment<V, T> {
-  fn eq(&self, other: &Self) -> bool {
-    self.0 == other.0
-  }
+    fn eq(&self, other: &Self) -> bool {
+        self.0 == other.0
+    }
 }
 
 impl<V: Hash + Eq, T> FromIterator<(V, T)> for DiscreteAssignment<V, T> {
-  fn from_iter<I: IntoIterator<Item = (V, T)>>(iter: I) -> Self {
-    DiscreteAssignment(iter.into_iter().collect())
-  }
+    fn from_iter<I: IntoIterator<Item = (V, T)>>(iter: I) -> Self {
+        DiscreteAssignment(iter.into_iter().collect())
+    }
 }
 impl<V: Hash + Eq, T, const N: usize> From<[(V, T); N]> for DiscreteAssignment<V, T> {
-  fn from(value: [(V, T); N]) -> Self {
-    Self::from_iter(value)
-  }
+    fn from(value: [(V, T); N]) -> Self {
+        Self::from_iter(value)
+    }
 }
 
 impl<V: Hash + Eq, T: PartialEq> Assignment for DiscreteAssignment<V, T> {
-  fn intersection(mut self, other: Self) -> Self {
-    self.0.retain(|var, value| {
-      let Some(value1) = other.0.get(var) else {
-        return false;
-      };
-      &*value == value1
-    });
-    self
-  }
-
-  fn union(mut self, other: Self) -> Self {
-    for (var, value) in other.0 {
-      let Some(value1) = self.0.get(&var) else {
-        self.0.insert(var, value);
-        continue;
-      };
-      if &value != value1 {
-        // conflict, remove `var` from `self`
-        self.0.remove(&var);
-      }
+    fn intersection(mut self, other: Self) -> Self {
+        self.0.retain(|var, value| {
+            let Some(value1) = other.0.get(var) else {
+                return false;
+            };
+            &*value == value1
+        });
+        self
     }
-    self
-  }
+
+    fn union(mut self, other: Self) -> Self {
+        for (var, value) in other.0 {
+            let Some(value1) = self.0.get(&var) else {
+                self.0.insert(var, value);
+                continue;
+            };
+            if &value != value1 {
+                // conflict, remove `var` from `self`
+                self.0.remove(&var);
+            }
+        }
+        self
+    }
 }
 
 impl<V: Hash + Eq, T> IntoIterator for DiscreteAssignment<V, T> {
-  type Item = (V, T);
-  type IntoIter = hash_map::IntoIter<V, T>;
+    type Item = (V, T);
+    type IntoIter = hash_map::IntoIter<V, T>;
 
-  fn into_iter(self) -> Self::IntoIter {
-    self.0.into_iter()
-  }
+    fn into_iter(self) -> Self::IntoIter {
+        self.0.into_iter()
+    }
 }

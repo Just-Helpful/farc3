@@ -32,12 +32,12 @@ pub mod systems;
 mod utils;
 
 pub mod prelude {
-  //! Common imports to `farc3-csp`
-  pub use super::{
-    assignment::Assignment,
-    constraint::Constraint,
-    heuristics::Heuristic,
-    system::{System, SystemIter},
-    systems::prelude::*,
-  };
+    //! Common imports to `farc3-csp`
+    pub use super::{
+        assignment::Assignment,
+        constraint::Constraint,
+        heuristics::Heuristic,
+        system::{System, SystemIter},
+        systems::prelude::*,
+    };
 }

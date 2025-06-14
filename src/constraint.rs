@@ -36,50 +36,50 @@ use std::fmt::Debug;
 /// }
 /// ```
 pub trait Constraint {
-  /// The type of variables assigned by the Constraint
-  type Var;
-  /// Any solution to a Constraint
-  type Solution: Assignment;
-  /// The error raised when 2 constraints conflict with each other
-  type ConflictErr: Debug;
+    /// The type of variables assigned by the Constraint
+    type Var;
+    /// Any solution to a Constraint
+    type Solution: Assignment;
+    /// The error raised when 2 constraints conflict with each other
+    type ConflictErr: Debug;
 
-  /// An approximation to the number of unique assignments that `self` has.
-  ///
-  /// This doesn't *have* to be exact, but should at least:
-  /// - `return 1` when there's only one unique solution
-  /// - `return 0` when no solutions are possible
-  fn size(&self) -> usize;
+    /// An approximation to the number of unique assignments that `self` has.
+    ///
+    /// This doesn't *have* to be exact, but should at least:
+    /// - `return 1` when there's only one unique solution
+    /// - `return 0` when no solutions are possible
+    fn size(&self) -> usize;
 
-  /// All variables that `self` affects
-  fn variables(&self) -> impl Iterator<Item = Self::Var>;
+    /// All variables that `self` affects
+    fn variables(&self) -> impl Iterator<Item = Self::Var>;
 
-  /// Possible decompositions for this constraint.
-  ///
-  /// A decomposition is a constraint that:
-  /// 1. affects a subset of `self.variables()`
-  /// 2. has a single unique solution that `self` allows
-  ///
-  /// ## Returns
-  ///
-  /// An iterator over the possible decompositions of `self`
-  fn decompositions(&self) -> impl Iterator<Item = Self>;
+    /// Possible decompositions for this constraint.
+    ///
+    /// A decomposition is a constraint that:
+    /// 1. affects a subset of `self.variables()`
+    /// 2. has a single unique solution that `self` allows
+    ///
+    /// ## Returns
+    ///
+    /// An iterator over the possible decompositions of `self`
+    fn decompositions(&self) -> impl Iterator<Item = Self>;
 
-  /// Removes the overlap between another constraint and this one.\
-  /// This is useful as it lets us remove uncertainty from the system\
-  /// and make it simpler to solve.
-  ///
-  /// ## Arguments
-  ///
-  /// - `other`: the other constraint to attempt reduction with
-  ///
-  /// ## Returns
-  ///
-  /// Whether `other` successfully reduced `self`,\
-  /// or a conflict error if `other` conflicts with this constraint.
-  ///
-  /// Constraints conflict if there's **no** assignment that satisfies both.
-  fn reduce(&mut self, other: &Self) -> Result<bool, Self::ConflictErr>;
+    /// Removes the overlap between another constraint and this one.\
+    /// This is useful as it lets us remove uncertainty from the system\
+    /// and make it simpler to solve.
+    ///
+    /// ## Arguments
+    ///
+    /// - `other`: the other constraint to attempt reduction with
+    ///
+    /// ## Returns
+    ///
+    /// Whether `other` successfully reduced `self`,\
+    /// or a conflict error if `other` conflicts with this constraint.
+    ///
+    /// Constraints conflict if there's **no** assignment that satisfies both.
+    fn reduce(&mut self, other: &Self) -> Result<bool, Self::ConflictErr>;
 
-  /// Pops all variables that have a unique assignment in this constraint
-  fn pop_solution(&mut self) -> Option<Self::Solution>;
+    /// Pops all variables that have a unique assignment in this constraint
+    fn pop_solution(&mut self) -> Option<Self::Solution>;
 }

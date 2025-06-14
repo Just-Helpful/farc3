@@ -10,7 +10,7 @@
 //! - the [`Constraint`] trait for constraining the values variables can take
 //! - the [`Heuristic`] trait for deciding search order for constraint solving
 //!
-//! [`System`]: crate::constraint::Constraint
+//! [`System`]: crate::system::System
 //! [`Assignment`]: crate::assignment::Assignment
 //! [`Constraint`]: crate::constraint::Constraint
 //! [`Heuristic`]: crate::heuristics::Heuristic

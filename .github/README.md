@@ -12,7 +12,7 @@ The primary exports of this crate are:
 - the [`Constraint`] trait for constraining the values variables can take
 - the [`Heuristic`] trait for deciding search order for constraint solving
 
-[`System`]: https://docs.rs/farc3-csp/latest/farc3_csp/constraint/trait.Constraint.html
+[`System`]: https://docs.rs/farc3-csp/latest/farc3_csp/system/struct.System.html
 [`Assignment`]: https://docs.rs/farc3-csp/latest/farc3_csp/assignment/trait.Assignment.html
 [`Constraint`]: https://docs.rs/farc3-csp/latest/farc3_csp/constraint/trait.Constraint.html
 [`Heuristic`]: https://docs.rs/farc3-csp/latest/farc3_csp/heuristics/trait.Heuristic.html

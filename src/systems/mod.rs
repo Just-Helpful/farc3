@@ -3,6 +3,6 @@ pub mod generic;
 pub mod mines;
 
 pub mod prelude {
-    //! Common exports for constraint definitions
-    pub use super::{generic::prelude::*, mines::prelude::*};
+  //! Common exports for constraint definitions
+  pub use super::{generic::prelude::*, mines::prelude::*};
 }

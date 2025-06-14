@@ -17,20 +17,20 @@
 /// // position [3, 3] is safe
 /// ```
 pub trait Assignment {
-  /// Calcultes the intersection of 2 solutions,\
-  /// that only assigns a variable when:
-  /// 1. the variable is assigned in both solutions
-  /// 2. the values for the variable do not contradict
-  fn intersection(self, other: Self) -> Self;
+    /// Calcultes the intersection of 2 solutions,\
+    /// that only assigns a variable when:
+    /// 1. the variable is assigned in both solutions
+    /// 2. the values for the variable do not contradict
+    fn intersection(self, other: Self) -> Self;
 
-  /// Calulates the union of 2 solutions,\
-  /// that assigns a variable when:
-  /// 1. the variable is assigned in both solutions
-  /// 2. the values for the variable do not contradict
-  ///
-  /// ## Note
-  ///
-  /// Whilst this implementation does **slightly** hide contradiction errors,\
-  /// these are meant to be caught during constraint reduction instead.
-  fn union(self, other: Self) -> Self;
+    /// Calulates the union of 2 solutions,\
+    /// that assigns a variable when:
+    /// 1. the variable is assigned in both solutions
+    /// 2. the values for the variable do not contradict
+    ///
+    /// ## Note
+    ///
+    /// Whilst this implementation does **slightly** hide contradiction errors,\
+    /// these are meant to be caught during constraint reduction instead.
+    fn union(self, other: Self) -> Self;
 }

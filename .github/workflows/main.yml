@@ -5,7 +5,7 @@ on:
   push:
     paths:
       # run when actions or source code are changed
-      - .github/workflows/**
+      - ./.github/workflows/**
       - src/**
       - Cargo.toml
       - Cargo.lock
@@ -53,7 +53,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Build
-        uses: .github/actions/build
+        uses: ./.github/actions/build
 
       - name: Format
         run: cargo fmt
@@ -76,7 +76,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Build
-        uses: .github/actions/build
+        uses: ./.github/actions/build
 
       - name: Lint
         run: cargo clippy --all-targets --all-features
@@ -90,7 +90,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Build
-        uses: .github/actions/build
+        uses: ./.github/actions/build
 
       - name: Test
         # we run testing seperately as it can be done without rebuilding
@@ -127,7 +127,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Build
-        uses: .github/actions/build
+        uses: ./.github/actions/build
 
       - name: Install `cargo sync-readme`
         uses: taiki-e/cache-cargo-install-action@v2
@@ -144,7 +144,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "docs: syncs README file"
-          file_pattern: ".github/README.md"
+          file_pattern: "./.github/README.md"
 
       - name: Upload docs
         uses: actions/upload-artifact@v4

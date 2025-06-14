@@ -1,6 +1,7 @@
 [package]
 name = "farc3-csp"
 description = "ARC3 solving for Constraint Satisfaction Problems"
+readme = ".github/README.md"
 version = "0.1.0"
 edition = "2024"
 

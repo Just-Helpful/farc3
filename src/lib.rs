@@ -4,6 +4,7 @@
 //! with the possibility to optimise based on the specific implementation of Constraints.
 //!
 //! The primary exports of this crate are:
+//!
 //! - [`System`] for generic constraint solving
 //! - the [`Assignment`] trait for assigning values to variables
 //! - the [`Constraint`] trait for constraining the values variables can take
@@ -15,10 +16,11 @@
 //! [`Heuristic`]: crate::heuristics::Heuristic
 //!
 //! There's also some common variants of `Constraints`:
-//! - [`GenericConstraint`] that covers most forms of discrete constraints
+//!
+//! - [`DiscreteConstraint`] that covers most forms of discrete constraints
 //! - [`MineConstraint`] that can be used for minesweeper mine solving
 //!
-//! [`GenericConstraint`]: crate::systems::generic::constraint::GenericConstraint
+//! [`DiscreteConstraint`]: crate::systems::generic::constraint::DiscreteConstraint
 //! [`MineConstraint`]: crate::systems::mines::constraint::MineConstraint
 #![warn(missing_docs)]
 

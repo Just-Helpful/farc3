@@ -1,0 +1,153 @@
+name: Package
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      # run when actions or source code are changed
+      - .github/workflows/**
+      - src/**
+      - Cargo.toml
+      - Cargo.lock
+  pull_request:
+    branches: ["main"]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  # Run Cargo build step and cache for later
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - id: cache
+        name: Cache Build
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: Build-${{ runner.os }}-${{ hashFiles('**/Cargo.lock', 'src/**') }}
+
+      - name: Build
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        run: |
+          cargo build --verbose
+          cargo build --release --verbose
+
+  # Formats package with `cargo fmt`
+  format:
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build
+        uses: .github/actions/build
+
+      - name: Format
+        run: cargo fmt
+
+      - name: Commit Code
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: formats source code"
+          file_pattern: "src/**"
+
+  # Lints package using `cargo clippy`
+  lint:
+    runs-on: ubuntu-latest
+    needs: build
+
+    env:
+      RUSTFLAGS: -Dwarnings
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build
+        uses: .github/actions/build
+
+      - name: Lint
+        run: cargo clippy --all-targets --all-features
+
+  # Tests the ODAWG library
+  test:
+    runs-on: ubuntu-latest
+    needs: [format, lint]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build
+        uses: .github/actions/build
+
+      - name: Test
+        # we run testing seperately as it can be done without rebuilding
+        # whilst `cargo tarpaulin` does tests, it often needs to rebuild
+        # the entire library due to using vastly different compiler flags
+        #
+        # doing it this way allows testing to fail quickly if a test fails
+        run: cargo test --tests
+
+      - name: Install `cargo tarpaulin`
+        uses: taiki-e/cache-cargo-install-action@v2
+        with:
+          tool: cargo-tarpaulin
+
+      - name: Coverage
+        run: |
+          cov=$(cargo tarpaulin --out=Html | tee /dev/stderr | tail -n 1)
+          echo "::notice title=Test Coverage::$cov"
+
+      - name: Upload Coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: Coverage Report
+          path: ./tarpaulin-report.html
+
+  # Builds Documentation and syncs README.md
+  docs:
+    runs-on: ubuntu-latest
+    needs: test
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build
+        uses: .github/actions/build
+
+      - name: Install `cargo sync-readme`
+        uses: taiki-e/cache-cargo-install-action@v2
+        with:
+          tool: cargo-rdme
+
+      - name: Sync Readme
+        run: cargo rdme
+
+      - name: Generate docs
+        run: cargo doc
+
+      - name: Update README
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "docs: syncs README file"
+          file_pattern: ".github/README.md"
+
+      - name: Upload docs
+        uses: actions/upload-artifact@v4
+        with:
+          name: Documentation
+          path: ./target/doc

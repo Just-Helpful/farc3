@@ -1,5 +1,5 @@
 [package]
-name = "farc3-csp"
+name = "farc3"
 description = "ARC3 solving for Constraint Satisfaction Problems"
 readme = ".github/README.md"
 version = "0.1.0"

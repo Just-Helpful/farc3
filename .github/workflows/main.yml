@@ -49,7 +49,7 @@ jobs:
         name: Versioning
         uses: SebRollen/toml-action@v1.2.0
         with:
-          file: cargo.toml
+          file: Cargo.toml
           field: package.version
 
   # Formats package with `cargo fmt`

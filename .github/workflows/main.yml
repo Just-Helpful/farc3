@@ -108,6 +108,7 @@ jobs:
       - name: Coverage
         run: |
           cov=$(cargo tarpaulin --out=Html | tee /dev/stderr | tail -n 1)
+          printf '%.1f' "${cov:0:5}" > ./.github/badges/coverage.yaml
           echo "::notice title=Test Coverage::$cov"
 
       - name: Upload Coverage
@@ -115,6 +116,12 @@ jobs:
         with:
           name: Coverage Report
           path: ./tarpaulin-report.html
+
+      - name: Commit Coverage Summary
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "docs: updates coverage badge"
+          file_pattern: "./.github/badges/coverage.yaml"
 
   # Builds Documentation and syncs README.md
   docs:

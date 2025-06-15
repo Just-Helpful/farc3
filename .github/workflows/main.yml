@@ -178,7 +178,7 @@ jobs:
 
     steps:
       - name: GitHub
-        uses: macoaure/badge-action@v1.0.0
+        uses: just-helpful/debug-badge-action@v1.0.0
         with:
           logo: github
           label: github
@@ -188,7 +188,7 @@ jobs:
           path: .github/badges/github.svg
 
       - name: Version
-        uses: macoaure/badge-action@v1.0.0
+        uses: just-helpful/debug-badge-action@v1.0.0
         with:
           logo: rust
           label: crates.io
@@ -198,7 +198,7 @@ jobs:
           path: .github/badges/version.svg
 
       - name: Coverage
-        uses: macoaure/badge-action@v1.0.0
+        uses: just-helpful/debug-badge-action@v1.0.0
         with:
           logo: codecov
           label: coverage

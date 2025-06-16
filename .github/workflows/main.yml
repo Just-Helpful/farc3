@@ -191,9 +191,9 @@ jobs:
         uses: just-helpful/debug-badge-action@main
         with:
           logo: rust
-          label: crates.io
+          label: crates_io
           status: v${{ needs.build.outputs.version }}
-          color: "#fc8d62"
+          color: "red"
           style: for-the-badge
           path: .github/badges/version.svg
 

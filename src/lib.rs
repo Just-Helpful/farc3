@@ -17,7 +17,7 @@
 //! [`Constraint`]: crate::constraint::Constraint
 //! [`Heuristic`]: crate::heuristics::Heuristic
 //!
-//! There's also some common variants of `Constraints`:
+//! There's also some common variants of constraints:
 //!
 //! - [`DiscreteConstraint`] that covers most forms of discrete constraints
 //! - [`MineConstraint`] that can be used for minesweeper mine solving

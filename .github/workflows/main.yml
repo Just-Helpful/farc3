@@ -123,7 +123,7 @@ jobs:
       - id: coverage
         name: Coverage
         run: |
-          cov=$(cargo tarpaulin --out=Html | tee /dev/stderr | tail -n 1)
+          cov=$(cargo tarpaulin --engine llvm --out=Html | tee /dev/stderr | tail -n 1)
           printf 'value=%.1f' "${cov:0:5}" >> $GITHUB_OUTPUT
           echo "::notice title=Test Coverage::$cov"
 

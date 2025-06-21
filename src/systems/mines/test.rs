@@ -167,7 +167,7 @@ mod solver {
   fn unresolvable() {
     let cons = MineConstraint::new([0, 1], 1);
 
-    let mut sys = System::from_iter([cons]);
+    let mut sys = System::from([cons]);
     sys.minimise().unwrap();
     assert_eq!(sys.len(), 1);
 
@@ -180,7 +180,7 @@ mod solver {
   fn trivial() {
     let cons = MineConstraint::new([0, 1], 0);
 
-    let mut sys = System::from_iter([cons]);
+    let mut sys = System::from([cons]);
     sys.minimise().unwrap();
     assert_eq!(sys.len(), 1);
 
@@ -202,7 +202,7 @@ mod solver {
     let cons1 = MineConstraint::new([1, 2], 1);
     let cons2 = MineConstraint::new([0, 1], 1);
 
-    let mut sys = System::from_iter([cons0, cons1, cons2]);
+    let mut sys = System::from([cons0, cons1, cons2]);
     sys.minimise().unwrap();
     assert_eq!(sys.len(), 3);
 
@@ -220,7 +220,7 @@ mod solver {
     let cons0 = MineConstraint::new([0, 1, 2], 2);
     let cons1 = MineConstraint::new([1, 2], 1);
 
-    let mut sys = System::from_iter([cons0, cons1]);
+    let mut sys = System::from([cons0, cons1]);
     sys.minimise().unwrap();
     assert_eq!(sys.len(), 2);
 
@@ -237,7 +237,7 @@ mod solver {
     let cons0 = MineConstraint::new([0, 1, 2], 2);
     let cons1 = MineConstraint::new([1, 2], 1);
 
-    let sys = System::from_iter([cons0, cons1]);
+    let sys = System::from([cons0, cons1]);
 
     let sltns: HashSet<_> = sys.solve().collect();
     assert_eq!(

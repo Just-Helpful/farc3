@@ -35,7 +35,7 @@
 //! let constraint_1 = MineConstraint::new([1, 2], 1);
 //!
 //! // Construct the constraint system from these 2 constraints
-//! let mut sys = System::from_iter([
+//! let mut sys = System::from([
 //!   constraint_0,
 //!   constraint_1
 //! ]);

@@ -157,9 +157,11 @@ mod constraints {
 /// [`System`]: crate::system::System
 mod solver {
   use std::collections::HashMap;
+  use std::collections::HashSet;
 
   use crate::prelude::MineConstraint;
   use crate::prelude::System;
+  use crate::systems::mines::assignment::MineAssignment;
 
   #[test]
   fn unresolvable() {
@@ -228,5 +230,22 @@ mod solver {
     // we have remaining undecided constraints
     assert_eq!(sys.len(), 1);
     assert_eq!(Vec::from_iter(sys), vec![MineConstraint::new([1, 2], 1)]);
+  }
+
+  #[test]
+  fn solutions() {
+    let cons0 = MineConstraint::new([0, 1, 2], 2);
+    let cons1 = MineConstraint::new([1, 2], 1);
+
+    let sys = System::from_iter([cons0, cons1]);
+
+    let sltns: HashSet<_> = sys.solve().collect();
+    assert_eq!(
+      sltns,
+      HashSet::from([
+        MineAssignment::new([1], [2, 0]),
+        MineAssignment::new([2], [1, 0]),
+      ])
+    );
   }
 }

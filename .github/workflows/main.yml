@@ -201,6 +201,7 @@ jobs:
         uses: just-helpful/debug-badge-action@main
         with:
           logo: codecov
+          logo-color: white
           label: coverage
           status: "${{ needs.test.outputs.coverage }}%"
           color: "#ee2c80"

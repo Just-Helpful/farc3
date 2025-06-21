@@ -25,7 +25,7 @@
 //! [`DiscreteConstraint`]: crate::systems::generic::constraint::DiscreteConstraint
 //! [`MineConstraint`]: crate::systems::mines::constraint::MineConstraint
 //!
-//! ## Examples
+//! # Examples
 //!
 //! ```
 //! // Construct the two mine constraints:

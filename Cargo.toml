@@ -5,6 +5,10 @@ readme = ".github/README.md"
 version = "0.1.0"
 edition = "2024"
 
+license = "MIT"
+homepage = "https://github.com/Just-Helpful/Farc3"
+repository = "https://github.com/Just-Helpful/Farc3"
+
 [profile.dev]
 incremental = true
 

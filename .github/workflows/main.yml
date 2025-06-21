@@ -183,7 +183,7 @@ jobs:
           logo: github
           label: github
           status: Farc3
-          color: brightgreen
+          color: "#238636"
           style: for-the-badge
           path: .github/badges/github.svg
 

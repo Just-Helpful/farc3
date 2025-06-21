@@ -202,8 +202,8 @@ jobs:
         with:
           logo: codecov
           label: coverage
-          status: ${{ needs.test.outputs.coverage }}%
-          color: "ee2c80"
+          status: "${{ needs.test.outputs.coverage }}%"
+          color: "#ee2c80"
           style: for-the-badge
           path: .github/badges/coverage.svg
 

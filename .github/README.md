@@ -29,7 +29,7 @@ There's also some common variants of constraints:
 [`DiscreteConstraint`]: https://docs.rs/farc3/latest/farc3/systems/generic/constraint/struct.DiscreteConstraint.html
 [`MineConstraint`]: https://docs.rs/farc3/latest/farc3/systems/mines/constraint/struct.MineConstraint.html
 
-### Examples
+## Examples
 
 ```rust
 // Construct the two mine constraints:

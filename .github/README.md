@@ -21,7 +21,7 @@ The primary exports of this crate are:
 [`Constraint`]: https://docs.rs/farc3/latest/farc3/constraint/trait.Constraint.html
 [`Heuristic`]: https://docs.rs/farc3/latest/farc3/heuristics/trait.Heuristic.html
 
-There's also some common variants of `Constraints`:
+There's also some common variants of constraints:
 
 - [`DiscreteConstraint`] that covers most forms of discrete constraints
 - [`MineConstraint`] that can be used for minesweeper mine solving

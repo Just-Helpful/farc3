@@ -1,4 +1,4 @@
-# Farc3 Constraint Solving
+# Arc3 Constraint Solving
 
 <!-- cargo-rdme start -->
 

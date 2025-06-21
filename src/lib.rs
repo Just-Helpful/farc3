@@ -1,4 +1,4 @@
-//! [![Github homepage](https://raw.githubusercontent.com/Just-Helpful/Farc3/refs/heads/main/.github/badges/github.svg)
+//! ![Github homepage](https://raw.githubusercontent.com/Just-Helpful/Farc3/refs/heads/main/.github/badges/github.svg)
 //! ![Package version](https://raw.githubusercontent.com/Just-Helpful/Farc3/refs/heads/main/.github/badges/version.svg)
 //! ![Coverage report](https://raw.githubusercontent.com/Just-Helpful/Farc3/refs/heads/main/.github/badges/coverage.svg)
 //!

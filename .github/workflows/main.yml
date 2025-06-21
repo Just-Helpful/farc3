@@ -183,7 +183,7 @@ jobs:
           logo: github
           label: github
           status: Farc3
-          color: "#238636"
+          color: "#439853"
           style: for-the-badge
           path: .github/badges/github.svg
 
@@ -193,7 +193,7 @@ jobs:
           logo: rust
           label: crates_io
           status: v${{ needs.build.outputs.version }}
-          color: "red"
+          color: "#ffc933"
           style: for-the-badge
           path: .github/badges/version.svg
 
@@ -203,7 +203,7 @@ jobs:
           logo: codecov
           label: coverage
           status: ${{ needs.test.outputs.coverage }}%
-          color: "#21B573"
+          color: "ee2c80"
           style: for-the-badge
           path: .github/badges/coverage.svg
 

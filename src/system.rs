@@ -444,7 +444,7 @@ impl<C: Constraint> System<C> {
   /// - [`System::solve_with_default`] for providing a heuristic type
   pub fn solve(self) -> SystemIter<C, DefaultHeuristic>
   where
-    C: Hash + Eq,
+    C: Hash + Eq + Clone,
     C::Var: Hash + Eq,
     C::Solution: Default,
   {
@@ -469,7 +469,7 @@ impl<C: Constraint> System<C> {
   /// - [`System::solve_with_default`] for providing a heuristic type
   pub fn solve_with<H>(mut self, heuristic: H) -> SystemIter<C, H>
   where
-    C: Hash + Eq,
+    C: Hash + Eq + Clone,
     C::Var: Hash + Eq,
     C::Solution: Default,
   {
@@ -499,7 +499,7 @@ impl<C: Constraint> System<C> {
   /// - [`System::solve_with`] for providing a heuristic value
   pub fn solve_with_default<H: Default>(self) -> SystemIter<C, H>
   where
-    C: Hash + Eq,
+    C: Hash + Eq + Clone,
     C::Var: Hash + Eq,
     C::Solution: Default,
   {
@@ -516,19 +516,19 @@ impl<C: Constraint> System<C> {
 /// @todo Parallelisation\
 /// This'll mostly consist of working out how to split the solution iterator.\
 /// This could be achieved my using a MaxHeap structure that we partition to split.
-pub struct SystemIter<C: Constraint, H> {
+pub struct SystemIter<C: Constraint + Clone, H> {
   /// A stack of system and their current solutions
   stack: Vec<(System<C>, C::Solution)>,
   /// The heuristic used to decide which constraint to explore
   heuristic: H,
 }
 
-impl<C: Constraint, H: Heuristic<C>> Iterator for SystemIter<C, H>
+impl<C: Constraint + Clone, H: Heuristic<C>> Iterator for SystemIter<C, H>
 where
   System<C>: Clone,
   C: Hash + Eq,
   C::Var: Hash + Eq,
-  C::Solution: Default,
+  C::Solution: Default + Clone,
 {
   type Item = C::Solution;
   fn next(&mut self) -> Option<Self::Item> {
@@ -549,7 +549,7 @@ where
         let Ok(new_sol) = new_sys.pop_solution() else {
           continue;
         };
-        self.stack.push((new_sys, new_sol));
+        self.stack.push((new_sys, solution.clone().union(new_sol)));
       }
     }
 

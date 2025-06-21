@@ -24,6 +24,35 @@
 //!
 //! [`DiscreteConstraint`]: crate::systems::generic::constraint::DiscreteConstraint
 //! [`MineConstraint`]: crate::systems::mines::constraint::MineConstraint
+//!
+//! ## Examples
+//!
+//! ```
+//! // Construct the two mine constraints:
+//! // 1. 2 mines among tiles 0, 1 and 2
+//! // 2. 1 mine among tiles 1 and 2
+//! let constraint_0 = MineConstraint::new([0, 1, 2], 2);
+//! let constraint_1 = MineConstraint::new([1, 2], 1);
+//!
+//! // Construct the constraint system from these 2 constraints
+//! let mut sys = System::from_iter([
+//!   constraint_0,
+//!   constraint_1
+//! ]);
+//!
+//! // Find all solutions to the system
+//! let sltns: HashSet<_> = sys.solve().collect();
+//!
+//! // All solutions should mark tile 0 as a mine
+//! // as only one of 1 and 2 can be a mine
+//! assert_eq!(
+//!   sltns,
+//!   HashSet::from([
+//!     MineAssignment::new(/*safe*/ [1], /*mines*/ [2, 0]),
+//!     MineAssignment::new(/*safe*/ [2], /*mines*/ [1, 0]),
+//!   ])
+//! );
+//! ```
 #![warn(missing_docs)]
 
 pub mod assignment;

@@ -1,22 +1,23 @@
 //! Assignments for mines in a minesweeper tiles
 
-use std::collections::{HashSet, hash_set};
+use std::collections::hash_set;
 use std::hash::Hash;
 
 use crate::assignment::Assignment;
+use crate::utils::NewHashSet;
 
 /// An assignment of safe / mine tiles in a minesweeper game.\
 /// This keeps track of which tiles are safe and which tiles are mines.
-#[derive(Default, Clone)]
-pub struct MineAssignment<V> {
-  safe_tiles: HashSet<V>,
-  mine_tiles: HashSet<V>,
+#[derive(Default, Debug, Clone, PartialEq, Eq, Hash)]
+pub struct MineAssignment<V: Hash + Eq> {
+  safe_tiles: NewHashSet<V>,
+  mine_tiles: NewHashSet<V>,
 }
 
 impl<V: Hash + Eq> FromIterator<(V, bool)> for MineAssignment<V> {
   fn from_iter<T: IntoIterator<Item = (V, bool)>>(iter: T) -> Self {
-    let mut safe_tiles = HashSet::new();
-    let mut mine_tiles = HashSet::new();
+    let mut safe_tiles = NewHashSet::default();
+    let mut mine_tiles = NewHashSet::default();
     for (tile, mine) in iter {
       if mine {
         mine_tiles.insert(tile);
@@ -31,6 +32,11 @@ impl<V: Hash + Eq> FromIterator<(V, bool)> for MineAssignment<V> {
     }
   }
 }
+impl<V: Hash + Eq, const N: usize> From<[(V, bool); N]> for MineAssignment<V> {
+  fn from(value: [(V, bool); N]) -> Self {
+    Self::from_iter(value)
+  }
+}
 
 impl<V: Hash + Eq> MineAssignment<V> {
   /// Constructs a new mine assignment from the tiles that are safe and those that are mines.
@@ -39,24 +45,24 @@ impl<V: Hash + Eq> MineAssignment<V> {
     mine_tiles: impl IntoIterator<Item = V>,
   ) -> Self {
     Self {
-      safe_tiles: HashSet::from_iter(safe_tiles),
-      mine_tiles: HashSet::from_iter(mine_tiles),
+      safe_tiles: NewHashSet::from_iter(safe_tiles),
+      mine_tiles: NewHashSet::from_iter(mine_tiles),
     }
   }
 
   /// Constructs a mine assignment where all tiles are known to be safe.
-  pub fn all_safe(safe_tiles: HashSet<V>) -> Self {
+  pub fn all_safe(safe_tiles: impl Into<NewHashSet<V>>) -> Self {
     Self {
-      safe_tiles,
-      mine_tiles: HashSet::new(),
+      safe_tiles: safe_tiles.into(),
+      mine_tiles: NewHashSet::default(),
     }
   }
 
   /// Constructs a mine assignment where all tiles are known to be mines.
-  pub fn all_mine(mine_tiles: HashSet<V>) -> Self {
+  pub fn all_mine(mine_tiles: impl Into<NewHashSet<V>>) -> Self {
     Self {
-      safe_tiles: HashSet::new(),
-      mine_tiles,
+      safe_tiles: NewHashSet::default(),
+      mine_tiles: mine_tiles.into(),
     }
   }
 }
@@ -94,7 +100,7 @@ impl<V: Hash + Eq> Assignment for MineAssignment<V> {
   }
 }
 
-impl<V> IntoIterator for MineAssignment<V> {
+impl<V: Hash + Eq> IntoIterator for MineAssignment<V> {
   type Item = (V, bool);
   type IntoIter = IntoIter<V>;
   fn into_iter(self) -> Self::IntoIter {

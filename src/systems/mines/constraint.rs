@@ -7,7 +7,7 @@ use super::{assignment::MineAssignment, errors::MineConflicts, utils::choose_num
 use crate::{constraint::Constraint, utils::NewHashSet};
 
 /// A constraint for the number of mines present in the given tiles.
-#[derive(Default, Debug, Hash, PartialEq, Eq)]
+#[derive(Default, Debug, Hash, PartialEq, Eq, Clone)]
 pub struct MineConstraint<V: Hash + Eq> {
   /// The tiles that mines could be present in
   tiles: NewHashSet<V>,
@@ -131,13 +131,13 @@ impl<V: Hash + Eq + Clone> Constraint for MineConstraint<V> {
   fn pop_solution(&mut self) -> Option<Self::Solution> {
     if self.count == 0 {
       let tiles = mem::take(&mut self.tiles);
-      return Some(Self::Solution::all_safe(tiles.into()));
+      return Some(Self::Solution::all_safe(tiles));
     }
 
     if self.count == self.tiles.len() {
       let tiles = mem::take(&mut self.tiles);
       self.count = 0;
-      return Some(Self::Solution::all_mine(tiles.into()));
+      return Some(Self::Solution::all_mine(tiles));
     }
 
     None

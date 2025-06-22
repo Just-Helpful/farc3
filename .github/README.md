@@ -12,7 +12,7 @@
   https://crates.io/crates/farc3
 )
 [![Package version](https://raw.githubusercontent.com/Just-Helpful/Farc3/refs/heads/main/.github/badges/coverage.svg)](
-  <!-- coverage-url-start -->  <!-- coverage-url-end -->
+  <!-- cov-start -->  <!-- cov-end -->
 )
 
 A semi-generic approach to solving Constraint Satisfaction Problems,\

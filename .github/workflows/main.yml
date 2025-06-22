@@ -215,9 +215,13 @@ jobs:
       - name: Coverage URL
         shell: bash
         run: |
-          sed -i \
-            "s/<!-- cov-start --> .* <!-- cov-end -->/<!-- cov-start --> ${{ needs.test.outputs.report-url }} <!-- cov-end -->/g"\
-            src/lib.rs
+          url_start="<!-- coverage-url-start -->"
+          url_end="<!-- coverage-url-end -->"
+
+          url_pattern="$url_start .* $url_end"
+          url_replace="$url_start ${{ needs.test.outputs.report-url }} $url_end"
+
+          sed -i "s%$url_pattern%$url_replace%g" src/lib.rs
 
       - name: Commit Badges
         uses: stefanzweifel/git-auto-commit-action@v5

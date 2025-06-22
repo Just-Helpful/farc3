@@ -96,7 +96,7 @@ jobs:
   # Tests the library
   test:
     runs-on: ubuntu-latest
-    needs: [format, lint]
+    needs: build
 
     outputs:
       coverage: ${{ steps.coverage.outputs.value }}
@@ -229,6 +229,7 @@ jobs:
         with:
           commit_message: "docs: syncs README file"
           file_pattern: "./.github/README.md"
+          push_options: "--force" # needed due to a merge conflict...
 
       - name: Upload docs
         uses: actions/upload-artifact@v4

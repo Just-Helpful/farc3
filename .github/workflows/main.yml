@@ -185,11 +185,11 @@ jobs:
           echo "s%$url_pattern%$url_replace%g"
           sed -i "s%$url_pattern%$url_replace%g" src/lib.rs
 
-      - name: Commit Badges
+      - name: Commit Coverage URL
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "🔄 Update badge"
-          file_pattern: ".github/badges/**"
+          file_pattern: "src/lib.rs"
 
   # Builds Documentation and syncs README.md
   docs:

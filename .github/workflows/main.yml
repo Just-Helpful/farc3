@@ -125,7 +125,7 @@ jobs:
         name: Coverage
         run: |
           cov=$(cargo tarpaulin --engine llvm --out=Html | tee /dev/stderr | tail -n 1)
-          printf 'value=%.1f' "${cov:0:5}" >> $GITHUB_OUTPUT
+          printf 'value=%.0f' "${cov:0:5}" >> $GITHUB_OUTPUT
           echo "::notice title=Test Coverage::$cov"
 
       - id: artifact
@@ -164,7 +164,7 @@ jobs:
         with:
           logo: rust
           label: crates.io
-          status: v${{ needs.build.outputs.version }}
+          status: ${{ needs.build.outputs.version }}
           color: "#ffc933"
           style: for-the-badge
           path: .github/badges/version.svg
@@ -193,6 +193,7 @@ jobs:
         with:
           commit_message: "🔄 Update badge"
           file_pattern: "src/**"
+          push_options: "--force" # needed due to a merge conflict...
 
   # Builds Documentation and syncs README.md
   docs:

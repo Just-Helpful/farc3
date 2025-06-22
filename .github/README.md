@@ -11,7 +11,9 @@
 [![Package version](https://raw.githubusercontent.com/Just-Helpful/Farc3/refs/heads/main/.github/badges/version.svg)](
   https://crates.io/crates/farc3
 )
-<img alt="Coverage report" src="https://raw.githubusercontent.com/Just-Helpful/Farc3/refs/heads/main/.github/badges/coverage.svg" />
+<svg height="28"> <!-- Unfortunately, I think this needs to be hard-coded -->
+  <image href="https://raw.githubusercontent.com/Just-Helpful/Farc3/refs/heads/main/.github/badges/coverage.svg" />
+</svg>
 
 A semi-generic approach to solving Constraint Satisfaction Problems,\
 with the possibility to optimise based on the specific implementation of Constraints.

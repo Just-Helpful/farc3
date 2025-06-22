@@ -193,7 +193,6 @@ jobs:
         with:
           commit_message: "🔄 Update badge"
           file_pattern: "src/**"
-          push_options: "--force" # needed due to a merge conflict...
 
   # Builds Documentation and syncs README.md
   docs:
@@ -230,7 +229,6 @@ jobs:
         with:
           commit_message: "docs: syncs README file"
           file_pattern: "./.github/README.md"
-          push_options: "--force" # needed due to a merge conflict...
 
       - name: Upload docs
         uses: actions/upload-artifact@v4

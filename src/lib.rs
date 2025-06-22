@@ -7,7 +7,7 @@
 //! [![Package version](https://raw.githubusercontent.com/Just-Helpful/Farc3/refs/heads/main/.github/badges/version.svg)](
 //!   https://crates.io/crates/farc3
 //! )
-//! <img alt="Coverage report" href="https://raw.githubusercontent.com/Just-Helpful/Farc3/refs/heads/main/.github/badges/coverage.svg" />
+//! <img alt="Coverage report" src="https://raw.githubusercontent.com/Just-Helpful/Farc3/refs/heads/main/.github/badges/coverage.svg" />
 //!
 //! A semi-generic approach to solving Constraint Satisfaction Problems,\
 //! with the possibility to optimise based on the specific implementation of Constraints.

@@ -143,6 +143,12 @@ jobs:
       contents: write
 
     steps:
+      - name: Configure Git
+        shell: bash
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: GitHub
         uses: just-helpful/debug-badge-action@main
         with:
@@ -196,6 +202,12 @@ jobs:
       contents: write
 
     steps:
+      - name: Configure Git
+        shell: bash
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Checkout
         uses: actions/checkout@v4
       - name: Build

@@ -100,6 +100,7 @@ jobs:
 
     outputs:
       coverage: ${{ steps.coverage.outputs.value }}
+      report-url: ${{ steps.artifact.outputs.artifact-url }}
 
     steps:
       - name: Checkout
@@ -127,7 +128,8 @@ jobs:
           printf 'value=%.1f' "${cov:0:5}" >> $GITHUB_OUTPUT
           echo "::notice title=Test Coverage::$cov"
 
-      - name: Upload Coverage
+      - id: artifact
+        name: Upload Coverage
         uses: actions/upload-artifact@v4
         with:
           name: Coverage Report
@@ -207,6 +209,7 @@ jobs:
           color: "#ee2c80"
           style: for-the-badge
           path: .github/badges/coverage.svg
+          link: ${{ needs.test.outputs.report-url }}
 
       - name: Commit Badges
         uses: stefanzweifel/git-auto-commit-action@v5

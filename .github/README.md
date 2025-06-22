@@ -2,6 +2,9 @@
 
 <!-- cargo-rdme start -->
 
+[![Crate documentation](https://raw.githubusercontent.com/Just-Helpful/Farc3/refs/heads/main/.github/badges/docs.svg)](
+  https://docs.rs/farc3/latest/farc3
+)
 [![Github homepage](https://raw.githubusercontent.com/Just-Helpful/Farc3/refs/heads/main/.github/badges/github.svg)](
   https://github.com/Just-Helpful/Farc3
 )

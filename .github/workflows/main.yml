@@ -192,7 +192,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "🔄 Update badge"
-          file_pattern: "src/lib.rs"
+          file_pattern: "src/**"
 
   # Builds Documentation and syncs README.md
   docs:

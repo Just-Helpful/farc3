@@ -163,7 +163,7 @@ jobs:
         uses: just-helpful/debug-badge-action@main
         with:
           logo: rust
-          label: crates_io
+          label: crates.io
           status: v${{ needs.build.outputs.version }}
           color: "#ffc933"
           style: for-the-badge

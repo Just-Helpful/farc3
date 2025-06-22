@@ -179,8 +179,8 @@ jobs:
       - name: Coverage URL
         shell: bash
         run: |
-          url_start="<!-- coverage-url-start -->"
-          url_end="<!-- coverage-url-end -->"
+          url_start="<\!-- coverage-url-start -->"
+          url_end="<\!-- coverage-url-end -->"
 
           url_pattern="$url_start .* $url_end"
           url_replace="$url_start ${{ needs.test.outputs.report-url }} $url_end"

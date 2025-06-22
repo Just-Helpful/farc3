@@ -8,7 +8,7 @@
 //!   https://crates.io/crates/farc3
 //! )
 //! [![Package version](https://raw.githubusercontent.com/Just-Helpful/Farc3/refs/heads/main/.github/badges/coverage.svg)](
-//!   <!-- cov-start -->  <!-- cov-end -->
+//!   <!-- coverage-url-start -->  <!-- coverage-url-end -->
 //! )
 //!
 //! A semi-generic approach to solving Constraint Satisfaction Problems,\

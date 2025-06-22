@@ -179,8 +179,8 @@ jobs:
       - name: Coverage URL
         shell: bash
         run: |
-          url_pattern="coverage\.svg\)\]\(\n//!.*\n\)"
-          url_replace="coverage\.svg\)\]\(\n//!${{ needs.test.outputs.report-url }}\n\)"
+          url_pattern="\[coverage-url\]: .*\n"
+          url_replace="\[coverage-url\]: ${{ needs.test.outputs.report-url }}\n"
 
           echo "s%$url_pattern%$url_replace%g"
           sed -i "s%$url_pattern%$url_replace%g" src/lib.rs

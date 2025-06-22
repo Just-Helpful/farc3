@@ -7,9 +7,9 @@
 //! [![Package version](https://raw.githubusercontent.com/Just-Helpful/Farc3/refs/heads/main/.github/badges/version.svg)](
 //!   https://crates.io/crates/farc3
 //! )
-//! <svg height="28"> <!-- Unfortunately, I think this needs to be hard-coded -->
-//!   <image href="https://raw.githubusercontent.com/Just-Helpful/Farc3/refs/heads/main/.github/badges/coverage.svg" />
-//! </svg>
+//! [![Package version](https://raw.githubusercontent.com/Just-Helpful/Farc3/refs/heads/main/.github/badges/coverage.svg)](
+//!   <!-- coverage-url-start -->  <!-- coverage-url-end -->
+//! )
 //!
 //! A semi-generic approach to solving Constraint Satisfaction Problems,\
 //! with the possibility to optimise based on the specific implementation of Constraints.

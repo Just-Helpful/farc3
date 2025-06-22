@@ -209,10 +209,22 @@ jobs:
           color: "#ee2c80"
           style: for-the-badge
           path: .github/badges/coverage.svg
-          link: ${{ needs.test.outputs.report-url }}
+
+      # This is pretty nasty but I can't seem to find any other way around
+      # Github's markdown rendering not allowing links in SVGs
+      - name: Coverage URL
+        shell: bash
+        run: |
+          url_start="<!-- coverage-url-start -->"
+          url_end="<!-- coverage-url-end -->"
+
+          url_pattern="$url_start .* $url_end"
+          url_replace="$url_start ${{ needs.test.outputs.report-url }} $url_end"
+
+          sed -i "s/$url_pattern/$url_replace/g" src/lib.rs
 
       - name: Commit Badges
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: formats source code"
+          commit_message: "🔄 Update badge"
           file_pattern: ".github/badges/**"

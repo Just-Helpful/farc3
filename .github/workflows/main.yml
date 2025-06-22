@@ -210,6 +210,8 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Build
         uses: ./.github/actions/build
 
@@ -228,7 +230,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "docs: syncs README file"
-          file_pattern: "./.github/README.md"
+          file_pattern: ".github/README.md"
 
       - name: Upload docs
         uses: actions/upload-artifact@v4

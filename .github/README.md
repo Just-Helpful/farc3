@@ -11,9 +11,9 @@
 [![Package version](https://raw.githubusercontent.com/Just-Helpful/Farc3/refs/heads/main/.github/badges/version.svg)](
   https://crates.io/crates/farc3
 )
-[![Package version](https://raw.githubusercontent.com/Just-Helpful/Farc3/refs/heads/main/.github/badges/coverage.svg)](
-  <!-- coverage-url-start --> # <!-- coverage-url-end -->
-)
+[![Package version](https://raw.githubusercontent.com/Just-Helpful/Farc3/refs/heads/main/.github/badges/coverage.svg)][coverage-url]
+
+[coverage-url]: #
 
 A semi-generic approach to solving Constraint Satisfaction Problems,\
 with the possibility to optimise based on the specific implementation of Constraints.

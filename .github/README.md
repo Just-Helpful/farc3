@@ -2,8 +2,12 @@
 
 <!-- cargo-rdme start -->
 
-![Github homepage](https://raw.githubusercontent.com/Just-Helpful/Farc3/refs/heads/main/.github/badges/github.svg)
-![Package version](https://raw.githubusercontent.com/Just-Helpful/Farc3/refs/heads/main/.github/badges/version.svg)
+[![Github homepage](https://raw.githubusercontent.com/Just-Helpful/Farc3/refs/heads/main/.github/badges/github.svg)](
+  https://github.com/Just-Helpful/Farc3
+)
+[![Package version](https://raw.githubusercontent.com/Just-Helpful/Farc3/refs/heads/main/.github/badges/version.svg)](
+  https://crates.io/crates/farc3
+)
 ![Coverage report](https://raw.githubusercontent.com/Just-Helpful/Farc3/refs/heads/main/.github/badges/coverage.svg)
 
 A semi-generic approach to solving Constraint Satisfaction Problems,\
@@ -32,6 +36,8 @@ There's also some common variants of constraints:
 ## Examples
 
 ```rust
+use farc3::prelude::*;
+
 // Construct the two mine constraints:
 // 1. 2 mines among tiles 0, 1 and 2
 // 2. 1 mine among tiles 1 and 2

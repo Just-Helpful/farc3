@@ -116,6 +116,8 @@ jobs:
           path: |
             ./tarpaulin-report.html
             ./tarpaulin-coverage.txt
+          # The key's a bit complex here, we effectively rely on the hash of the IR
+          # So that it's resistant to both pure doc changes and platform changes
           key: Coverage-${{ runner.os }}-${{ hashFiles('target/release/deps/*.rlib') }}
 
       - name: Test

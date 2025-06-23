@@ -148,16 +148,6 @@ jobs:
       - name: Build
         uses: ./.github/actions/build
 
-      - name: GitHub
-        uses: just-helpful/debug-badge-action@main
-        with:
-          logo: github
-          label: github
-          status: Farc3
-          color: "#439853"
-          style: for-the-badge
-          path: .github/badges/github.svg
-
       - name: Version
         uses: just-helpful/debug-badge-action@main
         with:

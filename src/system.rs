@@ -394,7 +394,7 @@ impl<C: Constraint> System<C> {
   /// ## Returns
   ///
   /// The best constraint to explore
-  pub(self) fn best_constraint<H: Heuristic<C>>(&self, mut heuristic: H) -> Option<&C>
+  pub(self) fn best_constraint<H: Heuristic<C>>(&self, heuristic: &mut H) -> Option<&C>
   where
     C::Var: Hash + Eq,
   {

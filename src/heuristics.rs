@@ -21,10 +21,10 @@ pub trait Heuristic<C> {
   fn rank(&mut self, constraint: &C, overlaps: &[&C]) -> Self::Rank;
 }
 
-impl<C, H: Heuristic<C>> Heuristic<C> for &mut H {
-  type Rank = H::Rank;
+impl<C, R: Ord, H: FnMut(&C, &[&C]) -> R> Heuristic<C> for H {
+  type Rank = R;
   fn rank(&mut self, constraint: &C, overlaps: &[&C]) -> Self::Rank {
-    H::rank(self, constraint, overlaps)
+    self(constraint, overlaps)
   }
 }
 

@@ -111,13 +111,14 @@ jobs:
 
       - id: cache
         name: Cache Tests
+        # we use a cache to avoid running testing and coverage if the underlying code hasn't changed.
+        # for this caches key we rely on a hash of the IR (Intermediate representation)
+        # that should be independant of platform or documentation changes
         uses: actions/cache@v4
         with:
           path: |
             ./tarpaulin-report.html
             ./tarpaulin-coverage.txt
-          # The key's a bit complex here, we effectively rely on the hash of the IR
-          # So that it's resistant to both pure doc changes and platform changes
           key: Coverage-${{ runner.os }}-${{ hashFiles('target/release/deps/*.rlib') }}
 
       - name: Test

@@ -149,6 +149,15 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build
+        uses: ./.github/actions/build
+
+      - name: Debug Merge Status
+        shell: bash
+        run: git log --graph --oneline --decorate --all
+
       - name: GitHub
         uses: just-helpful/debug-badge-action@main
         with:
@@ -214,6 +223,10 @@ jobs:
           fetch-depth: 0
       - name: Build
         uses: ./.github/actions/build
+
+      - name: Debug Merge Status
+        shell: bash
+        run: git log --graph --oneline --decorate --all
 
       - name: Install `cargo sync-readme`
         uses: taiki-e/cache-cargo-install-action@v2

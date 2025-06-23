@@ -124,7 +124,7 @@ jobs:
           path: |
             ./tarpaulin-report.html
             ./tarpaulin-coverage.txt
-          key: Coverage-${{ runner.os }}-${{ hashFiles('target/**') }}
+          key: Coverage-${{ runner.os }}-${{ hashFiles('target/release/libfarc3.rlib') }}
 
       - name: Install `cargo tarpaulin`
         if: steps.cache.outputs.cache-hit != 'true'

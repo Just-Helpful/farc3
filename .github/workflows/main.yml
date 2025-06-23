@@ -101,6 +101,7 @@ jobs:
     outputs:
       coverage: ${{ steps.coverage.outputs.value }}
       report-url: ${{ steps.artifact.outputs.artifact-url }}
+      cache-hit: ${{ steps.cache.outputs.cache-hit }}
 
     steps:
       - name: Checkout
@@ -116,7 +117,17 @@ jobs:
         # doing it this way allows testing to fail quickly if a test fails
         run: cargo test --tests
 
+      - id: cache
+        name: Cache Coverage
+        uses: actions/cache@v4
+        with:
+          path: |
+            ./tarpaulin-report.html
+            ./tarpaulin-coverage.txt
+          key: Coverage-${{ runner.os }}-${{ hashFiles('**/Cargo.lock', 'src/**') }}
+
       - name: Install `cargo tarpaulin`
+        if: ${{ !steps.cache.outputs.cache-hit }}
         uses: taiki-e/cache-cargo-install-action@v2
         with:
           tool: cargo-tarpaulin
@@ -124,7 +135,12 @@ jobs:
       - id: coverage
         name: Coverage
         run: |
-          cov=$(cargo tarpaulin --engine llvm --out=Html | tee /dev/stderr | tail -n 1)
+          if [ ${{ steps.cache.outputs.cache-hit }} ]; then
+            cov=$(cat ./tarpaulin-coverage.txt)
+          else
+            cov=$(cargo tarpaulin --engine llvm --out=Html | tee /dev/stderr | tail -n 1)
+            echo $cov > ./tarpaulin-coverage.txt
+          fi
           printf 'value=%.0f' "${cov:0:5}" >> $GITHUB_OUTPUT
           echo "::notice title=Test Coverage::$cov"
 
@@ -159,6 +175,7 @@ jobs:
           path: .github/badges/version.svg
 
       - name: Coverage
+        if: ${{ !needs.test.outputs.cache-hit }}
         uses: just-helpful/debug-badge-action@main
         with:
           logo: codecov
@@ -172,7 +189,7 @@ jobs:
   # Builds Documentation and syncs README.md
   docs:
     runs-on: ubuntu-latest
-    needs: test
+    needs: [build, test]
     permissions:
       contents: write
 
@@ -191,6 +208,7 @@ jobs:
       # This is pretty nasty but I can't seem to find any other way around
       # Github's markdown rendering not allowing links in SVGs
       - name: Coverage URL
+        if: ${{ !needs.test.outputs.cache-hit }}
         shell: bash
         run: |
           sed -i "s;\[coverage-url\]: [^\n]*;\[coverage-url\]: ${{needs.test.outputs.report-url}};g" src/lib.rs

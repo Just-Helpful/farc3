@@ -13,7 +13,7 @@
 )
 [![Package version](https://raw.githubusercontent.com/Just-Helpful/Farc3/refs/heads/main/.github/badges/coverage.svg)][coverage-url]
 
-[coverage-url]: https://github.com/Just-Helpful/Farc3/actions/runs/15835867216/artifacts/3387242748
+[coverage-url]: https://github.com/Just-Helpful/Farc3/actions/runs/15836240497/artifacts/3387380226
 
 A semi-generic approach to solving Constraint Satisfaction Problems,\
 with the possibility to optimise based on the specific implementation of Constraints.

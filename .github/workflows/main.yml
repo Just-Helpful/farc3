@@ -143,20 +143,10 @@ jobs:
       contents: write
 
     steps:
-      - name: Configure Git
-        shell: bash
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
       - name: Checkout
         uses: actions/checkout@v4
       - name: Build
         uses: ./.github/actions/build
-
-      - name: Debug Merge Status
-        shell: bash
-        run: git log --graph --oneline --decorate --all
 
       - name: GitHub
         uses: just-helpful/debug-badge-action@main
@@ -189,20 +179,6 @@ jobs:
           style: for-the-badge
           path: .github/badges/coverage.svg
 
-      # This is pretty nasty but I can't seem to find any other way around
-      # Github's markdown rendering not allowing links in SVGs
-      - name: Coverage URL
-        shell: bash
-        run: |
-          echo "s;\[coverage-url\]: [^\n]*;\[coverage-url\]: ${{needs.test.outputs.report-url}};g"
-          sed -i "s;\[coverage-url\]: [^\n]*;\[coverage-url\]: ${{needs.test.outputs.report-url}};g" src/lib.rs
-
-      - name: Commit Coverage URL
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "🔄 Update badge"
-          file_pattern: "src/**"
-
   # Builds Documentation and syncs README.md
   docs:
     runs-on: ubuntu-latest
@@ -222,15 +198,15 @@ jobs:
       - name: Build
         uses: ./.github/actions/build
 
-      - name: Pull
+      # This is pretty nasty but I can't seem to find any other way around
+      # Github's markdown rendering not allowing links in SVGs
+      - name: Coverage URL
         shell: bash
-        run: git pull
+        run: |
+          echo "s;\[coverage-url\]: [^\n]*;\[coverage-url\]: ${{needs.test.outputs.report-url}};g"
+          sed -i "s;\[coverage-url\]: [^\n]*;\[coverage-url\]: ${{needs.test.outputs.report-url}};g" src/lib.rs
 
-      - name: Debug Merge Status
-        shell: bash
-        run: git log --graph --oneline --decorate --all
-
-      - name: Install `cargo sync-readme`
+      - name: Install `cargo rdme`
         uses: taiki-e/cache-cargo-install-action@v2
         with:
           tool: cargo-rdme
@@ -244,8 +220,8 @@ jobs:
       - name: Update README
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "docs: syncs README file"
-          file_pattern: ".github/README.md"
+          commit_message: "docs: syncs README"
+          file_pattern: ".github/README.md src/**"
 
       - name: Upload docs
         uses: actions/upload-artifact@v4

@@ -209,7 +209,7 @@ jobs:
       - name: Update README
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "docs: syncs README"
+          commit_message: "🔄 Sync readme"
           file_pattern: ".github/README.md src/**"
 
       - name: Upload docs

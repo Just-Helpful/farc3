@@ -219,10 +219,12 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - name: Build
         uses: ./.github/actions/build
+
+      - name: Pull
+        shell: bash
+        run: git pull
 
       - name: Debug Merge Status
         shell: bash

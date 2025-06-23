@@ -40,7 +40,7 @@ jobs:
           key: Build-${{ runner.os }}-${{ hashFiles('**/Cargo.lock', 'src/**') }}
 
       - name: Build
-        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        if: steps.cache.outputs.cache-hit != 'true'
         run: |
           cargo build --verbose
           cargo build --release --verbose
@@ -127,7 +127,7 @@ jobs:
           key: Coverage-${{ runner.os }}-${{ hashFiles('**/Cargo.lock', 'src/**') }}
 
       - name: Install `cargo tarpaulin`
-        if: ${{ !steps.cache.outputs.cache-hit }}
+        if: steps.cache.outputs.cache-hit != 'true'
         uses: taiki-e/cache-cargo-install-action@v2
         with:
           tool: cargo-tarpaulin
@@ -175,7 +175,7 @@ jobs:
           path: .github/badges/version.svg
 
       - name: Coverage
-        if: ${{ !needs.test.outputs.cache-hit }}
+        if: needs.test.outputs.cache-hit != 'true'
         uses: just-helpful/debug-badge-action@main
         with:
           logo: codecov
@@ -208,7 +208,7 @@ jobs:
       # This is pretty nasty but I can't seem to find any other way around
       # Github's markdown rendering not allowing links in SVGs
       - name: Coverage URL
-        if: ${{ !needs.test.outputs.cache-hit }}
+        if: needs.test.outputs.cache-hit != 'true'
         shell: bash
         run: |
           sed -i "s;\[coverage-url\]: [^\n]*;\[coverage-url\]: ${{needs.test.outputs.report-url}};g" src/lib.rs
